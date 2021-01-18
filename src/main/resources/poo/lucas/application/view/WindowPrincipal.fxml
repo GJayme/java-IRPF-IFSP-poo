@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="518.0" prefWidth="746.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poo.lucas.application.controller.WindowPrincipalUIController">
+   <children>
+      <Label fx:id="lblRendaTributavel" layoutX="37.0" layoutY="39.0" text="Renda Tributável:" />
+      <Label fx:id="lblValorPago" layoutX="37.0" layoutY="88.0" text="Valor já pago:" />
+      <TextField fx:id="txtvalorTributavel" layoutX="187.0" layoutY="34.0" />
+      <TextField fx:id="txtValorPago" layoutX="187.0" layoutY="83.0" />
+      <TableView fx:id="tableView" layoutX="19.0" layoutY="247.0" prefHeight="221.0" prefWidth="710.0">
+        <columns>
+          <TableColumn fx:id="cDescricao" prefWidth="160.0" text="Descrição" />
+          <TableColumn fx:id="cValor" prefWidth="124.0" text="Valor" />
+            <TableColumn fx:id="cCNPJ" prefWidth="121.0" text="CNPJ" />
+            <TableColumn fx:id="cIntituicao" prefWidth="159.0" text="Instituição" />
+            <TableColumn fx:id="cConcelho" prefWidth="145.0" text="Conselho" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnAdicionar" layoutX="495.0" layoutY="478.0" mnemonicParsing="false" onAction="#adicionarGastoDedutivel" text="Adicionar" />
+      <Button fx:id="btnRemover" layoutX="586.0" layoutY="478.0" mnemonicParsing="false" onAction="#removerGastoDedutivel" text="Remover" />
+      <Button fx:id="btnEditar" layoutX="674.0" layoutY="478.0" mnemonicParsing="false" onAction="#editarGastoDedutivel" text="Editar" />
+      <Button fx:id="btnCalcular" layoutX="19.0" layoutY="478.0" mnemonicParsing="false" onAction="#calcularDeclaracoes" text="Calcular" />
+      <Label fx:id="lblDSimplificada" layoutX="37.0" layoutY="146.0" text="Declaração Simplificada:" />
+      <Label fx:id="lblDCompleta" layoutX="37.0" layoutY="199.0" text="Declaração Completa:" />
+      <Label fx:id="lblValorSimplicada" layoutX="273.0" layoutY="146.0" />
+      <Label fx:id="lblValorCompleta" layoutX="273.0" layoutY="207.0" />
+   </children>
+</AnchorPane>

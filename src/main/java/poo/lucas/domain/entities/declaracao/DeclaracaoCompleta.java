@@ -16,17 +16,29 @@ public class DeclaracaoCompleta extends Declaracao{
     }
 
     public void addGasto(GastoDedutivel g){
+        verifyAndAddGastoDedutivel(g);
+    }
 
-        boolean isGastoEducacao = g instanceof GastoEducacao;
+    private void verifyAndAddGastoDedutivel(GastoDedutivel g) {
+        double totalValorGastoSaude = 0.0;
+        double totalValorGastoEducacao = 0.0;
 
-        if (isGastoEducacao){
-            if (g.getValor() <= GastoEducacao.deducaoMaxEducacao){
-                //TODO fazer verificacao do total de valor de educacao que foi add na lista dedutivel, se o valor total for menor que 1500, add na lista
+        for (GastoDedutivel gasto : dedutiveis) {
+            if (gasto instanceof GastoEducacao){
+                if (totalValorGastoEducacao + gasto.getValor() <= GastoEducacao.deducaoMaxEducacao)
+                totalValorGastoEducacao += gasto.getValor();
+            } else {
+                if (totalValorGastoSaude + gasto.getValor() <= GastoSaude.deducaoMaxSaude)
+                    totalValorGastoSaude += gasto.getValor();
+            }
+        }
+
+        if (g instanceof GastoEducacao){
+            if (totalValorGastoEducacao <= GastoEducacao.deducaoMaxEducacao){
                 dedutiveis.add(g);
             }
         } else {
-            //TODO fazer verificacao do total de valor de saude que foi add na lista dedutivel, se o valor total for menor que 2000, add na lista
-            if (g.getValor() <= GastoSaude.deducaoMaxSaude){
+            if (totalValorGastoSaude <= GastoSaude.deducaoMaxSaude){
                 dedutiveis.add(g);
             }
         }
