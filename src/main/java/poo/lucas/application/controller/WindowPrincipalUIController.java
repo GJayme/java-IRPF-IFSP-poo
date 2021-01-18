@@ -12,6 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import poo.lucas.application.view.WindowPrincipal;
 import poo.lucas.domain.entities.gasto.GastoDedutivel;
 import poo.lucas.domain.entities.gasto.GastoEducacao;
+import poo.lucas.domain.entities.gasto.GastoSaude;
 
 import java.io.IOException;
 import java.util.List;
@@ -37,7 +38,6 @@ public class WindowPrincipalUIController {
     @FXML
     private TableColumn<GastoDedutivel, String> cCNPJ;
     @FXML
-    //TODO ver com o leo se pode passar como classe abstrata para instituicao e concelho
     private TableColumn<GastoDedutivel, String> cInstituicao;
     @FXML
     private TableColumn<GastoDedutivel, String> cConcelho;

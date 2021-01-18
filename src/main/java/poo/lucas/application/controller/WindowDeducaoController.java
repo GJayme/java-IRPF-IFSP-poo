@@ -8,27 +8,20 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import poo.lucas.application.view.WindowPrincipal;
 import poo.lucas.domain.entities.gasto.GastoDedutivel;
+import poo.lucas.domain.entities.gasto.GastoEducacao;
+import poo.lucas.domain.entities.gasto.GastoSaude;
 
+import java.io.IOException;
 import java.util.List;
+
+import static poo.lucas.application.main.Main.createGastoDedutivelUseCase;
 
 public class WindowDeducaoController {
 
-    public void salvarDeducao(ActionEvent actionEvent) {
-    }
-
     @FXML
     private ChoiceBox cbSelecionarGasto;
-    @FXML
-    private Label lblDescricao;
-    @FXML
-    private Label lblValor;
-    @FXML
-    private Label lblInstituicao;
-    @FXML
-    private Label lblCNPJ;
-    @FXML
-    private Label lblConcelho;
     @FXML
     private TextField txtDescricao;
     @FXML
@@ -40,28 +33,42 @@ public class WindowDeducaoController {
     @FXML
     private TextField txtConcelho;
     @FXML
-    private Label lblGasto;
-    @FXML
     private Button btnSalvar;
 
-    private ObservableList<GastoDedutivel> selectedBox;
+    private GastoDedutivel gastoDedutivel;
 
     @FXML
     private void initialize(){
-        bindTableViewToItemsList();
-        bindChoiceToValue();
-        loadDataAndShow();
+        cbSelecionarGasto.setItems(FXCollections.observableArrayList(
+                "Educação", "Saúde"
+        ));
     }
 
-    private void bindTableViewToItemsList() {
-        selectedBox = FXCollections.observableArrayList();
-        cbSelecionarGasto.setItems(selectedBox);
+    public void salvarDeducao(ActionEvent actionEvent) throws IOException {
+        getEntityFromView();
+        createGastoDedutivelUseCase.create(gastoDedutivel);
+        WindowPrincipal.setRoot("WindowPrincipal");
     }
 
-    private void bindChoiceToValue() {
-
+    private void getEntityFromView() {
+        if (gastoDedutivel == null){
+            createGastoProperKind();
+        }
+        gastoDedutivel.setDescricao(txtDescricao.getText());
+        gastoDedutivel.setValor(Double.valueOf(txtValor.getText()));
+        gastoDedutivel.setCnpj(txtCNPJ.getText());
     }
 
-    private void loadDataAndShow() {
+    private void createGastoProperKind() {
+        Object selectedGasto = cbSelecionarGasto.getSelectionModel().getSelectedItem();
+        if(selectedGasto == "Educação"){
+            GastoEducacao gastoEducacao = new GastoEducacao();
+            gastoEducacao.setNomeInstituicao(txtInstituicao.getText());
+            gastoDedutivel = gastoEducacao;
+        } else {
+            GastoSaude gastoSaude = new GastoSaude();
+            gastoSaude.setRegConselho(txtConcelho.getText());
+            gastoDedutivel = gastoSaude;
+        }
     }
 }

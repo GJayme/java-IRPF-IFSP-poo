@@ -7,7 +7,7 @@ import poo.lucas.domain.entities.gasto.GastoSaude;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeclaracaoCompleta extends Declaracao{
+public class DeclaracaoCompleta extends Declaracao {
 
     List<GastoDedutivel> dedutiveis = new ArrayList<>();
 
@@ -34,11 +34,11 @@ public class DeclaracaoCompleta extends Declaracao{
         }
 
         if (g instanceof GastoEducacao){
-            if (totalValorGastoEducacao <= GastoEducacao.deducaoMaxEducacao){
+            if (totalValorGastoEducacao + g.getValor() <= GastoEducacao.deducaoMaxEducacao){
                 dedutiveis.add(g);
             }
         } else {
-            if (totalValorGastoSaude <= GastoSaude.deducaoMaxSaude){
+            if (totalValorGastoSaude + g.getValor() <= GastoSaude.deducaoMaxSaude){
                 dedutiveis.add(g);
             }
         }

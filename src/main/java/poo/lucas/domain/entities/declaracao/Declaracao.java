@@ -6,7 +6,7 @@ public abstract class Declaracao {
     private Double rendaTributavel;
     private Double valorPago;
 
-    public static Double RENDA_MINIMA = 1903.99;
+    public final static Double RENDA_MINIMA = 1903.99;
 
     public Declaracao(Double rendaTributavel, Double valorPago) {
         this.rendaTributavel = rendaTributavel;

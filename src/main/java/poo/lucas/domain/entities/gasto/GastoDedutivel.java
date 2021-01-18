@@ -1,13 +1,13 @@
 package poo.lucas.domain.entities.gasto;
 
-import poo.lucas.domain.entities.declaracao.DeclaracaoCompleta;
-
 public abstract class GastoDedutivel {
     private String descricao;
     private Double valor;
     private String cnpj;
 
-    private DeclaracaoCompleta declaracaoCompleta;
+    public GastoDedutivel(){
+
+    }
 
     public GastoDedutivel(String descricao, Double valor, String cnpj) {
         this.descricao = descricao;
