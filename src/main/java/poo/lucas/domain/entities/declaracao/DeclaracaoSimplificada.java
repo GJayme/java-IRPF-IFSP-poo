@@ -8,8 +8,10 @@ public class DeclaracaoSimplificada extends Declaracao{
 
     @Override
     public double valorImposto() {
-        return 0;
+        if (getRendaTributavel() < Declaracao.RENDA_MINIMA) {
+            return 0;
+        }
+
+        return getRendaTributavel() * 0.20 - getValorPago();
     }
-
-
 }
