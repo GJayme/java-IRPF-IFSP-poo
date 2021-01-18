@@ -8,4 +8,11 @@ public class GastoEducacao extends GastoDedutivel{
         super(descricao, valor, cnpj);
         this.nomeInstituicao = nomeInstituicao;
     }
+
+    @Override
+    public String toString() {
+        return "GastoEducacao{" +
+                "nomeInstituicao='" + nomeInstituicao + '\'' +
+                '}';
+    }
 }

@@ -8,4 +8,11 @@ public class GastoSaude extends GastoDedutivel{
         super(descricao, valor, cnpj);
         this.regConselho = regConselho;
     }
+
+    @Override
+    public String toString() {
+        return "GastoSaude{" +
+                "regConselho='" + regConselho + '\'' +
+                '}';
+    }
 }

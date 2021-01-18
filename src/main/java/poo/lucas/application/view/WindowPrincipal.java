@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -13,7 +14,6 @@ import java.io.IOException;
  */
 
 public class WindowPrincipal extends Application{
-
     private static Scene scene;
 
     @Override
@@ -28,12 +28,20 @@ public class WindowPrincipal extends Application{
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(WindowPrincipal.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
+    }
+
+    public void show() throws IOException {
+        Scene scene = new Scene(loadFXML("WindowDeducao"));
+        Stage stage = new Stage();
+        stage.setScene(scene);
+
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
     }
 
     public static void main(String[] args) {
         launch();
     }
-
 }
