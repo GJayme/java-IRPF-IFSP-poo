@@ -3,17 +3,16 @@ package poo.lucas.application.repository.inmemory;
 import poo.lucas.domain.entities.gasto.GastoDedutivel;
 import poo.lucas.domain.usecases.gastoDedutivel.GastoDedutivelDAO;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class InMemoryGastoDedutivelDAO implements GastoDedutivelDAO {
 
-    private static final List<GastoDedutivel> gastos = new ArrayList<>();
+    private static final Map<String,GastoDedutivel> gastos = new LinkedHashMap<>();
 
     @Override
     public String create(GastoDedutivel gastoDedutivel) {
-        gastos.add(gastoDedutivel);
-        return gastoDedutivel.toString();
+        gastos.put(gastoDedutivel.getCnpj(), gastoDedutivel);
+        return gastoDedutivel.getCnpj();
     }
 
     @Override
@@ -23,12 +22,15 @@ public class InMemoryGastoDedutivelDAO implements GastoDedutivelDAO {
 
     @Override
     public List<GastoDedutivel> findAll() {
-        return new ArrayList<>(gastos);
+        return new ArrayList<>(gastos.values());
     }
 
     @Override
-    public GastoDedutivel findOne(String key) {
-        return null;
+    public Optional<GastoDedutivel> findOne(String key) {
+        if (gastos.containsKey(key)){
+            return Optional.of(gastos.get(key)) ;
+        }
+        return Optional.empty();
     }
 
     @Override

@@ -33,6 +33,7 @@ public class WindowPrincipal extends Application{
     }
 
     public void show() throws IOException {
+
         Scene scene = new Scene(loadFXML("WindowDeducao"));
         Stage stage = new Stage();
         stage.setScene(scene);

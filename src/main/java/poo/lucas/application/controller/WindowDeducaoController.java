@@ -66,6 +66,7 @@ public class WindowDeducaoController {
             gastoEducacao.setNomeInstituicao(txtInstituicao.getText());
             gastoDedutivel = gastoEducacao;
         } else {
+            txtInstituicao.setDisable(true);
             GastoSaude gastoSaude = new GastoSaude();
             gastoSaude.setRegConselho(txtConcelho.getText());
             gastoDedutivel = gastoSaude;

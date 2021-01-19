@@ -11,12 +11,13 @@ public class CreateGastoDedutivelUseCase {
     }
 
     public String create(GastoDedutivel gastoDedutivel){
-        GastoDedutivel isGastoExiste = gastoDedutivelDAO.findOne(gastoDedutivel.getCnpj());
 
-        if (isGastoExiste == null){
-            return gastoDedutivelDAO.create(gastoDedutivel);
+        String cnpj = gastoDedutivel.getCnpj();
+
+        if (gastoDedutivelDAO.findOne(cnpj).isPresent()){
+            throw new IllegalArgumentException("This cnpj is already in use.");
         }
 
-        return null;
+        return gastoDedutivelDAO.create(gastoDedutivel);
     }
 }

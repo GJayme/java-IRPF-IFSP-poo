@@ -6,13 +6,20 @@ import java.util.List;
 import java.util.Optional;
 
 public class FindGastoDedutivelUseCase {
-    private GastoDedutivelDAO GastoDedutivelDAO;
+    private GastoDedutivelDAO gastoDedutivelDAO;
 
     public FindGastoDedutivelUseCase(GastoDedutivelDAO GastoDedutivelDAO) {
-        this.GastoDedutivelDAO = GastoDedutivelDAO;
+        this.gastoDedutivelDAO = GastoDedutivelDAO;
+    }
+
+    public Optional<GastoDedutivel> findOne(String cnpj) {
+        if (cnpj == null) {
+            throw new IllegalArgumentException("CNPJ can not br null.");
+        }
+        return gastoDedutivelDAO.findOne(cnpj);
     }
 
     public List<GastoDedutivel> findAll(){
-        return GastoDedutivelDAO.findAll();
+        return gastoDedutivelDAO.findAll();
     }
 }

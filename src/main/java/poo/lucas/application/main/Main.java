@@ -11,6 +11,7 @@ public class Main {
     public static CreateGastoDedutivelUseCase createGastoDedutivelUseCase;
     public static FindGastoDedutivelUseCase findGastoDedutivelUseCase;
 
+
     public static void main(String[] args) {
         configureInjection();
         setupDatabase();

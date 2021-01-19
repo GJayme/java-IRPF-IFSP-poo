@@ -37,10 +37,6 @@ public class WindowPrincipalUIController {
     private TableColumn<GastoDedutivel, Double> cValor;
     @FXML
     private TableColumn<GastoDedutivel, String> cCNPJ;
-    @FXML
-    private TableColumn<GastoDedutivel, String> cInstituicao;
-    @FXML
-    private TableColumn<GastoDedutivel, String> cConcelho;
 
     private ObservableList<GastoDedutivel> tableData;
 
@@ -61,8 +57,7 @@ public class WindowPrincipalUIController {
         cValor.setCellValueFactory(new PropertyValueFactory<>("valor"));
         cCNPJ.setCellValueFactory(new PropertyValueFactory<>("cnpj"));
         cDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
-        cInstituicao.setCellValueFactory(new PropertyValueFactory<>("nomeInstituicao"));
-        cConcelho.setCellValueFactory(new PropertyValueFactory<>("regConselho"));
+
     }
 
     private void loadDataAndShow() {
@@ -77,6 +72,11 @@ public class WindowPrincipalUIController {
     }
 
     public void removerGastoDedutivel(ActionEvent actionEvent) {
+//        GastoDedutivel selectedGasto = tableView.getSelectionModel().getSelectedItem();
+//        if (selectedGasto != null){
+//            removeGastoUseCase.delete(selectedGasto);
+//            loadDataAndShow();
+//        }
     }
 
     public void editarGastoDedutivel(ActionEvent actionEvent) {
