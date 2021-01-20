@@ -10,21 +10,23 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import poo.lucas.application.view.WindowPrincipal;
+import poo.lucas.domain.entities.declaracao.DeclaracaoCompleta;
+import poo.lucas.domain.entities.declaracao.DeclaracaoSimplificada;
 import poo.lucas.domain.entities.gasto.GastoDedutivel;
-import poo.lucas.domain.entities.gasto.GastoEducacao;
-import poo.lucas.domain.entities.gasto.GastoSaude;
+import poo.lucas.domain.usecases.utils.EntityNotFoundException;
 
 import java.io.IOException;
 import java.util.List;
 
+import static poo.lucas.application.main.Main.deleteGastoDedutivelUseCase;
 import static poo.lucas.application.main.Main.findGastoDedutivelUseCase;
 
 public class WindowPrincipalUIController {
 
     @FXML
-    private Label lblRendaTributavel;
+    private Label lblValorSimplicada;
     @FXML
-    private Label lblValorPago;
+    private Label lblValorCompleta;
     @FXML
     private TextField txtValorTributavel;
     @FXML
@@ -57,7 +59,6 @@ public class WindowPrincipalUIController {
         cValor.setCellValueFactory(new PropertyValueFactory<>("valor"));
         cCNPJ.setCellValueFactory(new PropertyValueFactory<>("cnpj"));
         cDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
-
     }
 
     private void loadDataAndShow() {
@@ -67,21 +68,48 @@ public class WindowPrincipalUIController {
     }
 
     public void adicionarGastoDedutivel(ActionEvent actionEvent) throws IOException {
-        WindowPrincipal windowPrincipal = new WindowPrincipal();
-        windowPrincipal.show();
+        WindowPrincipal.setRoot("WindowDeducao");
     }
 
     public void removerGastoDedutivel(ActionEvent actionEvent) {
-//        GastoDedutivel selectedGasto = tableView.getSelectionModel().getSelectedItem();
-//        if (selectedGasto != null){
-//            removeGastoUseCase.delete(selectedGasto);
-//            loadDataAndShow();
-//        }
+        GastoDedutivel selectedGasto = tableView.getSelectionModel().getSelectedItem();
+        if (selectedGasto != null){
+            deleteGastoDedutivelUseCase.delete(selectedGasto);
+            loadDataAndShow();
+        }
     }
 
-    public void editarGastoDedutivel(ActionEvent actionEvent) {
+    public void editarGastoDedutivel(ActionEvent actionEvent) throws IOException {
+        GastoDedutivel selectedGasto = tableView.getSelectionModel().getSelectedItem();
+        if (selectedGasto == null){
+            throw new EntityNotFoundException("Nenhum gasto selecionado.");
+        }
+
+        WindowPrincipal.setRoot("WindowDeducao");
+        WindowDeducaoController controller = (WindowDeducaoController) WindowPrincipal.getController();
+        controller.setDeducao(selectedGasto);
     }
 
     public void calcularDeclaracoes(ActionEvent actionEvent) {
+        Double renda = Double.valueOf(txtValorTributavel.getText());
+        Double valorPago = Double.valueOf(txtValorPago.getText());
+
+        showDeclaracaoSimplificada(renda, valorPago);
+        showDeclaracaoCompleta(renda, valorPago);
+    }
+
+    private void showDeclaracaoCompleta(Double renda, Double valorPago) {
+        DeclaracaoCompleta declaracaoCompleta = new DeclaracaoCompleta(renda, valorPago);
+
+        for (GastoDedutivel gasto : tableData) {
+            declaracaoCompleta.addGasto(gasto);
+        }
+
+        lblValorCompleta.setText(String.valueOf(declaracaoCompleta.valorImposto()));
+    }
+
+    private void showDeclaracaoSimplificada(Double renda, Double valorPago) {
+        DeclaracaoSimplificada declaracaoSimplificada = new DeclaracaoSimplificada(renda, valorPago);
+        lblValorSimplicada.setText(String.valueOf(declaracaoSimplificada.valorImposto()));
     }
 }

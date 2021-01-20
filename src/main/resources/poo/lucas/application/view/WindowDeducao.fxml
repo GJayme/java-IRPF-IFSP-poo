@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.layout.AnchorPane?>
 <AnchorPane prefHeight="400.0" prefWidth="343.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poo.lucas.application.controller.WindowDeducaoController">
    <children>
-      <ChoiceBox fx:id="cbSelecionarGasto" accessibleRoleDescription="Selecione" layoutX="108.0" layoutY="59.0" prefHeight="26.0" prefWidth="171.0">
+      <ChoiceBox fx:id="cbSelecionarGasto" accessibleRoleDescription="Selecione" onAction="#escolhaGasto" layoutX="108.0" layoutY="59.0" prefHeight="26.0" prefWidth="171.0">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor></ChoiceBox>

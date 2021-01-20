@@ -8,6 +8,10 @@ public abstract class Declaracao {
 
     public final static Double RENDA_MINIMA = 1903.99;
 
+    public Declaracao() {
+
+    }
+
     public Declaracao(Double rendaTributavel, Double valorPago) {
         this.rendaTributavel = rendaTributavel;
         this.valorPago = valorPago;

@@ -2,14 +2,14 @@ package poo.lucas.application.main;
 
 import poo.lucas.application.repository.inmemory.InMemoryGastoDedutivelDAO;
 import poo.lucas.application.view.WindowPrincipal;
-import poo.lucas.domain.usecases.gastoDedutivel.CreateGastoDedutivelUseCase;
-import poo.lucas.domain.usecases.gastoDedutivel.FindGastoDedutivelUseCase;
-import poo.lucas.domain.usecases.gastoDedutivel.GastoDedutivelDAO;
+import poo.lucas.domain.usecases.gastoDedutivel.*;
 
 public class Main {
 
     public static CreateGastoDedutivelUseCase createGastoDedutivelUseCase;
+    public static UpdateGastoDedutivelUseCase updateGastoDedutivelUseCase;
     public static FindGastoDedutivelUseCase findGastoDedutivelUseCase;
+    public static DeleteGastoDedutivelUseCase deleteGastoDedutivelUseCase;
 
 
     public static void main(String[] args) {
@@ -24,6 +24,8 @@ public class Main {
     private static void configureInjection() {
         GastoDedutivelDAO gastoDAO = new InMemoryGastoDedutivelDAO();
         createGastoDedutivelUseCase = new CreateGastoDedutivelUseCase(gastoDAO);
+        updateGastoDedutivelUseCase = new UpdateGastoDedutivelUseCase(gastoDAO);
         findGastoDedutivelUseCase = new FindGastoDedutivelUseCase(gastoDAO);
+        deleteGastoDedutivelUseCase = new DeleteGastoDedutivelUseCase(gastoDAO);
     }
 }

@@ -7,34 +7,44 @@ import java.util.*;
 
 public class InMemoryGastoDedutivelDAO implements GastoDedutivelDAO {
 
-    private static final Map<String,GastoDedutivel> gastos = new LinkedHashMap<>();
+    private static final Map<String,GastoDedutivel> gastosDB = new LinkedHashMap<>();
 
     @Override
     public String create(GastoDedutivel gastoDedutivel) {
-        gastos.put(gastoDedutivel.getCnpj(), gastoDedutivel);
+        gastosDB.put(gastoDedutivel.getCnpj(), gastoDedutivel);
         return gastoDedutivel.getCnpj();
     }
 
     @Override
-    public boolean update(GastoDedutivel type) {
-        return false;
-    }
-
-    @Override
-    public List<GastoDedutivel> findAll() {
-        return new ArrayList<>(gastos.values());
-    }
-
-    @Override
     public Optional<GastoDedutivel> findOne(String key) {
-        if (gastos.containsKey(key)){
-            return Optional.of(gastos.get(key)) ;
+        if (gastosDB.containsKey(key)){
+            return Optional.of(gastosDB.get(key)) ;
         }
         return Optional.empty();
     }
 
     @Override
-    public boolean delete(GastoDedutivel type) {
+    public List<GastoDedutivel> findAll() {
+        return new ArrayList<>(gastosDB.values());
+    }
+
+    @Override
+    public boolean update(GastoDedutivel gastoDedutivel) {
+        String cnpj = gastoDedutivel.getCnpj();
+        if (gastosDB.containsKey(cnpj)){
+            gastosDB.replace(cnpj, gastoDedutivel);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean delete(GastoDedutivel gastoDedutivel) {
+        String cnpj = gastoDedutivel.getCnpj();
+        if (gastosDB.containsKey(cnpj)){
+            gastosDB.remove(cnpj);
+            return true;
+        }
         return false;
     }
 }

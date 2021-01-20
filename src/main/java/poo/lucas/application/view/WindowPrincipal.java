@@ -14,7 +14,9 @@ import java.io.IOException;
  */
 
 public class WindowPrincipal extends Application{
+
     private static Scene scene;
+    private static Object controller;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -28,13 +30,19 @@ public class WindowPrincipal extends Application{
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(WindowPrincipal.class.getResource(fxml + ".fxml"));
-        return fxmlLoader.load();
+        FXMLLoader fxmlLoader =  new FXMLLoader();
+        Parent parent = fxmlLoader.load(WindowPrincipal.class.getResource(fxml + ".fxml").openStream());
+        controller = fxmlLoader.getController();
+        return parent;
     }
 
-    public void show() throws IOException {
+    public static Object getController() {
+        return controller;
+    }
 
-        Scene scene = new Scene(loadFXML("WindowDeducao"));
+    //TODO: essa funcao n ta funcionando direito, bug ao enviar dados para a principal
+    public static void show(String fxml) throws IOException {
+        Scene scene = new Scene(loadFXML(fxml));
         Stage stage = new Stage();
         stage.setScene(scene);
 

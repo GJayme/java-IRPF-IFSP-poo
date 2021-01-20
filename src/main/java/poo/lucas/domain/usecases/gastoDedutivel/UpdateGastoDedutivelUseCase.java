@@ -3,18 +3,21 @@ package poo.lucas.domain.usecases.gastoDedutivel;
 import poo.lucas.domain.entities.gasto.GastoDedutivel;
 import poo.lucas.domain.usecases.utils.EntityNotFoundException;
 
-public class DeleteGastoDedutivelUseCase {
-
+public class UpdateGastoDedutivelUseCase {
     private GastoDedutivelDAO gastoDedutivelDAO;
 
-    public DeleteGastoDedutivelUseCase(GastoDedutivelDAO gastoDedutivelDAO) {
+    public UpdateGastoDedutivelUseCase(GastoDedutivelDAO gastoDedutivelDAO) {
         this.gastoDedutivelDAO = gastoDedutivelDAO;
     }
 
-    public boolean delete (GastoDedutivel gastoDedutivel){
-        if (gastoDedutivel == null || gastoDedutivelDAO.findOne(gastoDedutivel.getCnpj()).isEmpty()){
+    public boolean update(GastoDedutivel gastoDedutivel){
+
+        String cnpj = gastoDedutivel.getCnpj();
+
+        if(gastoDedutivelDAO.findOne(cnpj).isEmpty()){
             throw new EntityNotFoundException("Gasto não encontrado.");
         }
-        return gastoDedutivelDAO.delete(gastoDedutivel);
+
+        return gastoDedutivelDAO.update(gastoDedutivel);
     }
 }

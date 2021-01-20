@@ -1,6 +1,7 @@
 package poo.lucas.domain.usecases.gastoDedutivel;
 
 import poo.lucas.domain.entities.gasto.GastoDedutivel;
+import poo.lucas.domain.usecases.utils.EntityAlreadyExistisException;
 
 public class CreateGastoDedutivelUseCase {
 
@@ -15,7 +16,7 @@ public class CreateGastoDedutivelUseCase {
         String cnpj = gastoDedutivel.getCnpj();
 
         if (gastoDedutivelDAO.findOne(cnpj).isPresent()){
-            throw new IllegalArgumentException("This cnpj is already in use.");
+            throw new EntityAlreadyExistisException("Esse CNPJ já foi cadastrado.");
         }
 
         return gastoDedutivelDAO.create(gastoDedutivel);

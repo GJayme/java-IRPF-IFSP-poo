@@ -11,15 +11,21 @@ public class DeclaracaoCompleta extends Declaracao {
 
     List<GastoDedutivel> dedutiveis = new ArrayList<>();
 
+    public DeclaracaoCompleta(){
+    }
+
     public DeclaracaoCompleta(Double rendaTributavel, Double valorPago) {
         super(rendaTributavel, valorPago);
     }
 
     public void addGasto(GastoDedutivel g){
-        verifyAndAddGastoDedutivel(g);
+        GastoDedutivel gastoDedutivelVerificado = verifyAndAddGastoDedutivel(g);
+        if (gastoDedutivelVerificado != null){
+            dedutiveis.add(gastoDedutivelVerificado);
+        }
     }
 
-    private void verifyAndAddGastoDedutivel(GastoDedutivel g) {
+    private GastoDedutivel verifyAndAddGastoDedutivel(GastoDedutivel g) {
         double totalValorGastoSaude = 0.0;
         double totalValorGastoEducacao = 0.0;
 
@@ -35,11 +41,15 @@ public class DeclaracaoCompleta extends Declaracao {
 
         if (g instanceof GastoEducacao){
             if (totalValorGastoEducacao + g.getValor() <= GastoEducacao.deducaoMaxEducacao){
-                dedutiveis.add(g);
+                return g;
+            } else {
+                return null;
             }
         } else {
             if (totalValorGastoSaude + g.getValor() <= GastoSaude.deducaoMaxSaude){
-                dedutiveis.add(g);
+                return g;
+            } else {
+                return null;
             }
         }
     }
