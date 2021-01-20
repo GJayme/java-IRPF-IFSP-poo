@@ -7,6 +7,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import poo.lucas.application.view.WindowPrincipal;
 import poo.lucas.domain.entities.gasto.GastoDedutivel;
 import poo.lucas.domain.entities.gasto.GastoEducacao;
@@ -55,15 +57,26 @@ public class WindowDeducaoController {
 
     public void salvarDeducao(ActionEvent actionEvent) throws IOException {
 
+        Object choiceSelected = cbSelecionarGasto.getSelectionModel().getSelectedItem();
+
         if (btnSalvar.getText().equals("Atualizar")){
             updateGastoDedutivelUseCase.update(gastoDedutivel);
             WindowPrincipal.setRoot("WindowPrincipal");
+            Stage stage = (Stage) btnSalvar.getScene().getWindow();
+            stage.close();
             return;
+        }
+
+        if (choiceSelected ==  null){
+            Stage stage = (Stage) btnSalvar.getScene().getWindow();
+            stage.close();
         }
 
         getEntityFromView();
         createGastoDedutivelUseCase.create(gastoDedutivel);
         WindowPrincipal.setRoot("WindowPrincipal");
+        Stage stage = (Stage) btnSalvar.getScene().getWindow();
+        stage.close();
     }
 
     private void cleanField() {

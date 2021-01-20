@@ -68,7 +68,7 @@ public class WindowPrincipalUIController {
     }
 
     public void adicionarGastoDedutivel(ActionEvent actionEvent) throws IOException {
-        WindowPrincipal.setRoot("WindowDeducao");
+        WindowPrincipal.show("WindowDeducao");
     }
 
     public void removerGastoDedutivel(ActionEvent actionEvent) {
@@ -104,7 +104,6 @@ public class WindowPrincipalUIController {
         for (GastoDedutivel gasto : tableData) {
             declaracaoCompleta.addGasto(gasto);
         }
-
         lblValorCompleta.setText(String.valueOf(declaracaoCompleta.valorImposto()));
     }
 
