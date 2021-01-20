@@ -40,7 +40,6 @@ public class WindowPrincipal extends Application{
         return controller;
     }
 
-    //TODO: essa funcao n ta funcionando direito, bug ao enviar dados para a principal
     public static void show(String fxml) throws IOException {
         Scene scene = new Scene(loadFXML(fxml));
         Stage stage = new Stage();

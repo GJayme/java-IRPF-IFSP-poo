@@ -59,6 +59,7 @@ public class WindowDeducaoController {
 
         Object choiceSelected = cbSelecionarGasto.getSelectionModel().getSelectedItem();
 
+        //TODO: Não esta atualizando, esta chamando o msm objeto
         if (btnSalvar.getText().equals("Atualizar")){
             updateGastoDedutivelUseCase.update(gastoDedutivel);
             WindowPrincipal.setRoot("WindowPrincipal");
